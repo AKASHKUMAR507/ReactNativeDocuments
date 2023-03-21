@@ -110,3 +110,63 @@ const Button = () => {
 
 export default Button;
 
+
+//  😉 🥰write a program to switch color between two button in react native
+
+
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+
+const App = () => {
+  const [activeButton, setActiveButton] = useState(1);
+
+  // function to handle button press
+  const handlePress = (buttonNumber) => {
+    setActiveButton(buttonNumber);
+  }
+
+  return (
+    <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => handlePress(1)}
+          style={[styles.button, activeButton === 1 && styles.activeButton]}
+        >
+          <Text style={styles.buttonText}>Button 1</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handlePress(2)}
+          style={[styles.button, activeButton === 2 && styles.activeButton]}
+        >
+          <Text style={styles.buttonText}>Button 2</Text>
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    width: 200,
+    height: 50,
+    borderRadius: 10,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#E1E1E1',
+  },
+  activeButton: {
+    backgroundColor: '#FF0000',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
+
+export default App;
+
