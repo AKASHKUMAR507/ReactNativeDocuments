@@ -9,3 +9,16 @@
 //As our HomeScreen is included in the stack.navigator so this.props.navigation will inherit props from the navigation object.
 
       </View>
+
+
+
+        <View style ={{
+            justifyContent:'center',
+            alignItems:'center'
+          }}>
+            <View>
+              <Text style={styles.forget}
+               onPress = {() => navigation.navigate(ForgotPassword)}
+              >Forgot password?</Text>
+            </View>
+        </View>
