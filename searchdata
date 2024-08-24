@@ -1,0 +1,48 @@
+    useEffect(() => {
+         const filter = rfqList?.filter((item) => (
+             item.name?.toLowerCase().includes(search.toLowerCase()) ||
+             item.description?.toLowerCase().includes(search.toLowerCase()) ||
+             item.deliveryplace?.toLowerCase().includes(search.toLowerCase()) ||
+             item.deliverycity?.toLowerCase().includes(search.toLowerCase()) ||
+             item.rfqtype?.toLowerCase().includes(search.toLowerCase()) ||
+             item.dealid?.toString().toLowerCase().includes(search.toString().toLowerCase()) ||
+             item.rfqid?.toString().toLowerCase().includes(search.toString().toLowerCase()) 
+         ));
+        setFilterRfqList(filter);
+    }, [search]);
+
+
+    const POSearch = (data, query) => {
+    if (!data) return;
+    if (!query) return data;
+
+    const lowercasedQuery = query.replace(/\s+/g, ' ').toLowerCase().toString();
+
+    return data.filter(item => {
+        const poMatch = item.po.toLowerCase().includes(lowercasedQuery);
+        const descMatch = item.desc.toLowerCase().includes(lowercasedQuery);
+        const statusMatch = item.status.toLowerCase().includes(lowercasedQuery);
+        const bannerStatusMatch = item.bannerStatus.toLowerCase().includes(lowercasedQuery);
+        const baselineStatusMatch = item.baselineStatus.toLowerCase().includes(lowercasedQuery);
+
+        // Return true if any of the fields match the query
+        return poMatch || descMatch || statusMatch || bannerStatusMatch || baselineStatusMatch;
+    });
+};
+
+const POSearch2 = (data, query, fieldsToSearch = ['po', 'desc', 'status', 'bannerStatus', 'baselineStatus']) => {
+    // Return an empty array if no data is provided
+    if (!data) return;
+    if (!query) return data;
+
+    // Normalize the search query
+    const lowercasedQuery = query.trim().toLowerCase();
+
+    // Return filtered results
+    return data.filter(item => {
+        return fieldsToSearch.some(field => {
+            const value = item[field];
+            return value && value.toLowerCase().includes(lowercasedQuery);
+        });
+    });
+};
